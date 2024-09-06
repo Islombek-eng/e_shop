@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="ru">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+<head>
+    <meta charset="UTF-8">
+    <title>Продукт</title>
+</head>
+<body class="bg bg-dark">
+<div class="container px-4 py-5">
+    {% for p in product %}
+    <h1 class="text-white">{{ p.pr_name }}</h1>
+    <br>
+    <h3 class="text-white">Описание: {{ p.pr_des }}</h3>
+    <br>
+    <img src="{{ p.pr_photo.url }}" alt="{{ p.pr_name }}" width="350" height="250">
+    <h3 class="text-white">Цена: {{ p.pr_price }}</h3>
+    {% if user.is_authenticated %}
+    <form action="/" method="post">
+        <button class="btn btn-secondary">{{ p.pr_price}}</button>
+        <input type="number" min="1" name="pr_quantity">
+        <button type="submit" class="btn btn-success">Добавить в корзину</button>
+    </form>
+    {% else %}
+    <h1 class="text-white">Войдите или зарегистрирйтесь для покупки товара!</h1>
+    <a href="/register" class="nav-link active">Регистрация</a>
+    <a href="/accounts/login" class="nav-link active">Войти</a>
+    {% endif %}
+    {% endfor %}
+</div>
+</body>
+</html>
